@@ -76,7 +76,7 @@ resource "aws_subnet" "subnet1" {
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = "true"
   availability_zone       = data.aws_availability_zones.available.names[0]
-
+  user_data = "${file("generate_agent.sh")}"
 }
 
 resource "aws_subnet" "subnet2" {
@@ -84,9 +84,13 @@ resource "aws_subnet" "subnet2" {
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = "true"
   availability_zone       = data.aws_availability_zones.available.names[1]
-
+  user_data = "${file("generate_agent.sh")}"
 }
 
+resource "aws_key_pair" "eShop" {
+  user_data = "aws ec2 create-key-pair --key-name eShop --query 'KeyMaterial' --output text > eShop.pem"
+  }
+  
 # ROUTING #
 resource "aws_route_table" "rtb" {
   vpc_id = aws_vpc.vpc.id
