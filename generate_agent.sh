@@ -1,5 +1,3 @@
-#!/bin/bash
-
 set -xe
 
 NODE_NAME=`hostname`
