@@ -80,7 +80,6 @@ resource "aws_subnet" "subnet1" {
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = "true"
   availability_zone       = data.aws_availability_zones.available.names[0]
-  user_data = "${file("generate_agent.sh")}"
 }
 
 resource "aws_subnet" "subnet2" {
@@ -88,7 +87,6 @@ resource "aws_subnet" "subnet2" {
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = "true"
   availability_zone       = data.aws_availability_zones.available.names[1]
-  user_data = "${file("generate_agent.sh")}"
 }
   
 # ROUTING #
@@ -186,6 +184,7 @@ resource "aws_instance" "nginx1" {
   subnet_id              = aws_subnet.subnet1.id
   vpc_security_group_ids = [aws_security_group.nginx-sg.id]
   key_name               = var.key_name
+  user_data = "${file("generate_agent.sh")}"
 
   connection {
     type = "ssh"
@@ -208,6 +207,7 @@ resource "aws_instance" "nginx2" {
   subnet_id              = aws_subnet.subnet2.id
   vpc_security_group_ids = [aws_security_group.nginx-sg.id]
   key_name               = var.key_name
+  user_data = "${file("generate_agent.sh")}"
 
   connection {
     type = "ssh"
