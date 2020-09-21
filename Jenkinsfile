@@ -4,16 +4,16 @@ pipeline {
      		terraform 'terraform-11'
 	}
     stages {
-	stage('Create key-pair') {
-			steps {
-				withAWS(credentials: 'awsCredentials', region: 'us-east-1') {
-					sh "aws ec2 create-key-pair --key-name eShop --query 'KeyMaterial' --output text > eShop.pem"
-				}
-			}
-	    }
-        stage('Terraform init') {
+
+            stage('Terraform init') {
 			steps {
 				sh "terraform init"
+			}
+	    }	
+	    stage('Create key-pair') {
+			steps {
+					sh "aws ec2 create-key-pair --key-name eShop --query 'KeyMaterial' --output text > eShop.pem"
+				}
 			}
 	    }
 		stage('Terraform plan') {
