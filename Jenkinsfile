@@ -2,11 +2,13 @@ pipeline {
 	tools{
       terraform 'terraform-11'
 	}
-  stage('Terraform init') {
+    agent any
+    stages {
+        stage('Terraform init') {
 			steps {
 				sh "terraform init"
 			}
-		}
+	    }
 		stage('Terraform plan') {
 			steps {
 				sh "terraform plan -out eShop.tfplan"
@@ -23,3 +25,4 @@ pipeline {
 			cleanWs deleteDirs: true, notFailBuild: true
 		}
 	}
+}
