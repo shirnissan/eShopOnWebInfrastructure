@@ -86,14 +86,6 @@ resource "aws_subnet" "subnet2" {
   availability_zone       = data.aws_availability_zones.available.names[1]
   user_data = "${file("generate_agent.sh")}"
 }
-
-resource "aws_key_pair" "eShop" {
-  user_data = << EOF
-		#! /bin/bash
-    aws ec2 create-key-pair --key-name eShop --query 'KeyMaterial' --output text > eShop.pem   
-	  EOF
-
-  }
   
 # ROUTING #
 resource "aws_route_table" "rtb" {
