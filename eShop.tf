@@ -184,11 +184,10 @@ resource "aws_instance" "nginx1" {
   key_name               = var.key_name
 
   connection {
-    type = "winrm"
+    type = "ssh"
     host = self.public_ip
     user = "ec2-user"
-    password = "${AWS_PASSWORD}"
-
+    private_key = file(eShop.pem)
   }
 
   provisioner "remote-exec" {
@@ -207,10 +206,10 @@ resource "aws_instance" "nginx2" {
   key_name               = var.key_name
 
   connection {
-    type = "winrm"
+    type = "ssh"
     host = self.public_ip
     user = "ec2-user"
-    password = "${AWS_PASSWORD}"
+    private_key = file(eShop.pem)
 
   }
 
