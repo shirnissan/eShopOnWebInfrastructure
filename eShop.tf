@@ -184,10 +184,10 @@ resource "aws_instance" "nginx1" {
   key_name               = var.key_name
 
   connection {
-    type        = "ssh"
-    host        = self.public_ip
-    user        = "ec2-user"
-    private_key = file(var.private_key_path)
+    type = "winrm"
+    host = self.public_ip
+    user = "ec2-user"
+    password = "${AWS_PASSWORD}"
 
   }
 
@@ -207,10 +207,10 @@ resource "aws_instance" "nginx2" {
   key_name               = var.key_name
 
   connection {
-    type        = "ssh"
-    host        = self.public_ip
-    user        = "ec2-user"
-    private_key = file(var.private_key_path)
+    type = "winrm"
+    host = self.public_ip
+    user = "ec2-user"
+    password = "${AWS_PASSWORD}"
 
   }
 
