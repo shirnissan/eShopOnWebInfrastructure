@@ -2,7 +2,7 @@ pipeline {
 	tools{
       terraform 'terraform-11'
 	}
-    agent any
+    agent master
     stages {
 	stage('Create key-pair') {
 			steps {
