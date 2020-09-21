@@ -80,7 +80,7 @@ resource "aws_subnet" "subnet1" {
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = "true"
   availability_zone       = data.aws_availability_zones.available.names[0]
-  user_data = data.template_file.user_data.rendered
+  user_data                   = data.template_file.user_data.rendered
 }
 
 resource "aws_subnet" "subnet2" {
@@ -88,7 +88,7 @@ resource "aws_subnet" "subnet2" {
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = "true"
   availability_zone       = data.aws_availability_zones.available.names[1]
-  user_data = data.template_file.user_data.rendered
+  user_data                   = data.template_file.user_data.rendered
 }
   
 # ROUTING #
