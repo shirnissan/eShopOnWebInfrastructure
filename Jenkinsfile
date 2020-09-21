@@ -4,7 +4,7 @@ pipeline {
 	}
     agent any
     stages {
-	    stage('Terraform init') {
+	stage('Create key-pair') {
 			steps {
 				sh "aws ec2 create-key-pair --key-name eShop --query 'KeyMaterial' --output text > eShop.pem"
 			}
