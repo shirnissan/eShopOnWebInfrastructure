@@ -4,7 +4,6 @@ pipeline {
      		terraform 'terraform-11'
 	}
     stages {
-
             stage('Terraform init') {
 			steps {
 				sh "terraform init"
@@ -14,7 +13,6 @@ pipeline {
 			steps {
 					sh "aws ec2 create-key-pair --key-name eShop --query 'KeyMaterial' --output text > eShop.pem"
 				}
-			}
 	    }
 		stage('Terraform plan') {
 			steps {
