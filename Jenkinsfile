@@ -6,7 +6,9 @@ pipeline {
     stages {
 	stage('Create key-pair') {
 			steps {
-				sh "aws ec2 create-key-pair --key-name eShop --query 'KeyMaterial' --output text > eShop.pem"
+				withAWS(credentials: 'awsCredentials', region: 'us-east-1') {
+					sh "aws ec2 create-key-pair --key-name eShop --query 'KeyMaterial' --output text > eShop.pem"
+				}
 			}
 	    }
         stage('Terraform init') {
