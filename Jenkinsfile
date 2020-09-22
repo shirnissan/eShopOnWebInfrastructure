@@ -7,6 +7,9 @@ pipeline {
      		terraform 'terraform-11'
 	}
     stages {
+	    stage('env'){
+		    sh "printenv"
+	    }
             	stage('Terraform init') {
 			steps {
 				sh "terraform init"
