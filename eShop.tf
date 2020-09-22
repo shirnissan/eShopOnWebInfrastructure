@@ -7,6 +7,8 @@ variable "aws_secret_key" {}
 variable "private_key_path" {}
 variable "key_name" {}
 variable "jenkins_url" {}
+variable "master_pswd" {}
+variable "master_name" {}
 variable "region" {
   default = "us-east-1"
 }
@@ -197,12 +199,12 @@ NUM_EXECUTORS=1
 curl ${var.jenkins_url}/jnlpJars/jenkins-cli.jar -o ~/jenkins-cli.jar
 
 # Create node according to parameters passed in
-cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${MASTER_USERNAME}:${MASTER_PASSWORD}" -s "${var.jenkins_url}" create-node "${NODE_NAME}" |true
+cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${MASTER_USERNAME}:${MASTER_PASSWORD}" -s "${var.jenkins_url}" create-node "$NODE_NAME" |true
 <slave>
-  <name>${NODE_NAME}</name>
+  <name>$NODE_NAME</name>
   <description></description>
   <remoteFS>/home/jenkins/agent</remoteFS>
-  <numExecutors>${NUM_EXECUTORS}</numExecutors>
+  <numExecutors>$NUM_EXECUTORS</numExecutors>
   <mode>NORMAL</mode>
   <retentionStrategy class="hudson.slaves.RetentionStrategy\$Always"/>
   <launcher class="hudson.slaves.JNLPLauncher">
