@@ -4,19 +4,26 @@ pipeline {
      		terraform 'terraform-11'
 	}
     stages {
-            stage('Terraform init') {
+            	stage('Terraform init') {
 			steps {
 				sh "terraform init"
 			}
-	    }	
+	    }
+	    ansiColor('vga') {
 		stage('Terraform plan') {
 			steps {
-				sh "terraform plan -out eShop.tfplan"
+				
+				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'awsCredentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+					sh "terraform plan -var 'aws_access_key=$AWS_ACCESS_KEY_ID' -var 'aws_secret_key=$AWS_SECRET_ACCESS_KEY'  -out eShop.tfplan"
+				}
 			}
 		}
+	    }
 		stage('Terraform apply') {
 			steps {
-				sh "terraform apply --auto-approve"
+					withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'awsCredentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+					sh "terraform apply -var 'aws_access_key=$AWS_ACCESS_KEY_ID' -var 'aws_secret_key=$AWS_SECRET_ACCESS_KEY' --auto-approve"
+				}
 			}
 		}
 	}
