@@ -190,7 +190,7 @@ resource "aws_instance" "nginx1" {
     type = "ssh"
     host = self.public_ip
     user = "ec2-user"
-    private_key = file(/home/sela/eShop.pem)
+    private_key = file("/home/sela/eShop.pem")
   }
 
   provisioner "remote-exec" {
@@ -213,7 +213,7 @@ resource "aws_instance" "nginx2" {
     type = "ssh"
     host = self.public_ip
     user = "ec2-user"
-    private_key = file(/home/sela/eShop.pem)
+    private_key = file("/home/sela/eShop.pem")
 
   }
 
