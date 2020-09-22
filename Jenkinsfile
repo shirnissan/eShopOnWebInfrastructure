@@ -8,7 +8,9 @@ pipeline {
 	}
     stages {
 	    stage('env'){
-		    sh "printenv"
+		    steps{
+		    	sh "printenv"
+		    }
 	    }
             	stage('Terraform init') {
 			steps {
