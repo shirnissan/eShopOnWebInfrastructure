@@ -6,10 +6,10 @@ NODE_NAME=`hostname`
 NUM_EXECUTORS=1
 
 # Download CLI jar from the master
-curl ${JENKINS_URL}/jnlpJars/jenkins-cli.jar -o ~/jenkins-cli.jar
+curl ${jenkins_url}/jnlpJars/jenkins-cli.jar -o ~/jenkins-cli.jar
 
 # Create node according to parameters passed in
-cat <<EOF | java -jar ~/jenkins-cli.jar -auth "${MASTER_USERNAME}:${MASTER_PASSWORD}" -s "${JENKINS_URL}" create-node "${NODE_NAME}" |true
+cat <<EOF | java -jar ~/jenkins-cli.jar -auth "${MASTER_USERNAME}:${MASTER_PASSWORD}" -s "${jenkins_url}" create-node "${NODE_NAME}" |true
 <slave>
   <name>${NODE_NAME}</name>
   <description></description>
@@ -35,8 +35,8 @@ EOF
 
 
 # Download slave.jar
-curl ${JENKINS_URL}/jnlpJars/slave.jar -o /usr/share/jenkins/slave.jar
+curl ${jenkins_url}/jnlpJars/slave.jar -o /usr/share/jenkins/slave.jar
 
 # Run jnlp launcher
-java -jar /usr/share/jenkins/slave.jar -jnlpUrl ${JENKINS_URL}/computer/${NODE_NAME}/slave-agent.jnlp -jnlpCredentials "${MASTER_USERNAME}:${MASTER_PASSWORD}"
+java -jar /usr/share/jenkins/slave.jar -jnlpUrl ${jenkins_url}/computer/${NODE_NAME}/slave-agent.jnlp -jnlpCredentials "${MASTER_USERNAME}:${MASTER_PASSWORD}"
 
