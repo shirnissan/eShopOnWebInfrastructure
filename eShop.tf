@@ -191,7 +191,7 @@ set -xe
 NODE_NAME=`hostname`
 NUM_EXECUTORS=1
 
-apt-get install openjdk-11-jre openjdk-11-jdk
+amazon-linux-extras install java-openjdk11
 
 # Download CLI jar from the master
 curl ${var.jenkins_url}/jnlpJars/jenkins-cli.jar -o ~/jenkins-cli.jar
