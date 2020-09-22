@@ -217,10 +217,10 @@ cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_
 
 
 # Download slave.jar
-curl ${var.jenkins_url}/jnlpJars/slave.jar -o /usr/share/jenkins/slave.jar
+curl ${var.jenkins_url}/jnlpJars/slave.jar -o /tmp/slave.jar
 
 # Run jnlp launcher
-java -jar /usr/share/jenkins/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-agent.jnlp -jnlpCredentials "${var.master_name}:${var.master_pswd}"
+java -jar /tmp/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-agent.jnlp -jnlpCredentials "${var.master_name}:${var.master_pswd}"
 EOF
 
   connection {
