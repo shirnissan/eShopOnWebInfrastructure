@@ -21,7 +21,7 @@ pipeline {
 			steps {
 				
 				withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'awsCredentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-					sh "terraform plan -var 'aws_access_key=$AWS_ACCESS_KEY_ID' -var 'aws_secret_key=$AWS_SECRET_ACCESS_KEY' -var 'jenkins_url=$JENKINS_URL' -out eShop.tfplan"
+					sh "terraform plan -var 'aws_access_key=$AWS_ACCESS_KEY_ID' -var 'aws_secret_key=$AWS_SECRET_ACCESS_KEY' -var 'jenkins_url=$JENKINS_URL' -var 'master_pswd=MASTER_PASSWORD' -var 'master_name=MASTER_USERNAME' -out eShop.tfplan"
 				}
 			}
 		}
@@ -29,7 +29,7 @@ pipeline {
 		stage('Terraform apply') {
 			steps {
 					withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'awsCredentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
-					sh "terraform apply -var 'aws_access_key=$AWS_ACCESS_KEY_ID' -var 'aws_secret_key=$AWS_SECRET_ACCESS_KEY' -var 'jenkins_url=$JENKINS_URL' --auto-approve"
+					sh "terraform apply -var 'aws_access_key=$AWS_ACCESS_KEY_ID' -var 'aws_secret_key=$AWS_SECRET_ACCESS_KEY' -var 'jenkins_url=$JENKINS_URL' -var 'master_pswd=MASTER_PASSWORD' -var 'master_name=MASTER_USERNAME'  --auto-approve"
 				}
 			}
 		}
