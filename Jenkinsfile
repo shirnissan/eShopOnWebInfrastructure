@@ -1,5 +1,8 @@
 pipeline {
 	agent any
+	options{
+		ansiColor('xterm')
+	}
 	tools{
      		terraform 'terraform-11'
 	}
@@ -9,7 +12,6 @@ pipeline {
 				sh "terraform init"
 			}
 	    }
-	    ansiColor('vga') {
 		stage('Terraform plan') {
 			steps {
 				
@@ -18,7 +20,7 @@ pipeline {
 				}
 			}
 		}
-	    }
+	    
 		stage('Terraform apply') {
 			steps {
 					withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'awsCredentials', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
