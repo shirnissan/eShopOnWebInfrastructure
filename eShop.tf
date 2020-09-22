@@ -182,6 +182,7 @@ set -xe
 NODE_NAME=`hostname`
 NUM_EXECUTORS=1
 
+yum update -y
 yum install -y amazon-linux-extras
 amazon-linux-extras install java-openjdk11
 
@@ -251,13 +252,13 @@ EOF
 
 #   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo yum install nginx -y",
-      "sudo service nginx start",
-    ]
-  }
-}
+#   provisioner "remote-exec" {
+#     inline = [
+#       "sudo yum install nginx -y",
+#       "sudo service nginx start",
+#     ]
+#   }
+# }
 
 ##################################################################################
 # OUTPUT
