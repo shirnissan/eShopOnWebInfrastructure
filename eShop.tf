@@ -216,7 +216,7 @@ cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_
   </launcher>
   <label></label>
   <nodeProperties/>
-  <userId>${USER}</userId>
+  <userId>$USER</userId>
 </slave>
 1EOF
 # Creating the node will fail if it already exists, so |true to suppress the
