@@ -199,7 +199,7 @@ NUM_EXECUTORS=1
 curl ${var.jenkins_url}/jnlpJars/jenkins-cli.jar -o ~/jenkins-cli.jar
 
 # Create node according to parameters passed in
-cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${MASTER_USERNAME}:${MASTER_PASSWORD}" -s "${var.jenkins_url}" create-node "$NODE_NAME" |true
+cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_pswd}" -s "${var.jenkins_url}" create-node "$NODE_NAME" |true
 <slave>
   <name>$NODE_NAME</name>
   <description></description>
@@ -228,7 +228,7 @@ cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${MASTER_USERNAME}:${MASTER_PASS
 curl ${var.jenkins_url}/jnlpJars/slave.jar -o /usr/share/jenkins/slave.jar
 
 # Run jnlp launcher
-java -jar /usr/share/jenkins/slave.jar -jnlpUrl ${var.jenkins_url}/computer/${NODE_NAME}/slave-agent.jnlp -jnlpCredentials "${MASTER_USERNAME}:${MASTER_PASSWORD}"
+java -jar /usr/share/jenkins/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-agent.jnlp -jnlpCredentials "${var.master_name}:${var.master_pswd}"
 EOF
 
   connection {
