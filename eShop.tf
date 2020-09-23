@@ -174,21 +174,7 @@ resource "aws_instance" "nginx1" {
   subnet_id              = aws_subnet.subnet1.id
   vpc_security_group_ids = [aws_security_group.nginx-sg.id]
   key_name               = var.key_name
-
-  connection {
-    type = "ssh"
-    host = self.public_ip
-    user = "ec2-user"
-    private_key = file("/home/sela/eShop.pem")
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo yum install nginx -y",
-      "sudo service nginx start",
-    ]
-  }
-    user_data = <<EOF
+      user_data = <<EOF
 #!/bin/bash
 
 set -xe
@@ -234,7 +220,23 @@ curl ${var.jenkins_url}/jnlpJars/slave.jar -o /tmp/slave.jar
 
 # Run jnlp launcher
 java -jar /tmp/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-agent.jnlp -jnlpCredentials "${var.master_name}:${var.master_pswd}"
+touch /tmp/test.txt
+
 EOF
+
+  connection {
+    type = "ssh"
+    host = self.public_ip
+    user = "ec2-user"
+    private_key = file("/home/sela/eShop.pem")
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum install nginx -y",
+      "sudo service nginx start",
+    ]
+  }
 }
 
 resource "aws_instance" "nginx2" {
@@ -289,6 +291,8 @@ curl ${var.jenkins_url}/jnlpJars/slave.jar -o /tmp/slave.jar
 
 # Run jnlp launcher
 java -jar /tmp/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-agent.jnlp -jnlpCredentials "${var.master_name}:${var.master_pswd}"
+touch /tmp/test.txt
+
 EOF
 
   connection {
