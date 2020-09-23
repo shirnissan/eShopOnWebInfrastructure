@@ -7,9 +7,9 @@ pipeline {
      		terraform 'terraform-11'
 	}
     stages {
-	    stage('env'){
+	    stage('Archive Artifacts'){
 		    steps{
-		    	sh "printenv"
+		    	archiveArtifacts artifacts: 'terraform.tfstate', followSymlinks: false
 		    }
 	    }
             	stage('Terraform init') {
@@ -33,6 +33,11 @@ pipeline {
 				}
 			}
 		}
+	    	stage('Copy Artifacts'){
+		    	steps{
+		    		copyArtifacts filter: 'terraform.tfstate', fingerprintArtifacts: true, projectName: 'eShopOnWebInfrastructure', selector: lastSuccessful()	
+		    	}
+	    	}
 	}
 	post {
 		always {
