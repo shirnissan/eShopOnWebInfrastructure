@@ -9,7 +9,7 @@ pipeline {
     stages {
 	    stage('Archive Artifacts'){
 		    steps{
-		    	archiveArtifacts artifacts: 'terraform.tfstate', followSymlinks: false
+		    	archiveArtifacts artifacts: 'terraform.tfstate', followSymlinks: false, , allowEmptyArchive: true
 		    }
 	    }
             	stage('Terraform init') {
