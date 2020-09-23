@@ -34,11 +34,12 @@ pipeline {
 				}
 			}
 		}
-	    stage('Archive')
+	    stage('Archive') {
 	    steps{
 	    		    	archiveArtifacts artifacts: 'terraform.tfstate', followSymlinks: false	
 	    }
 	}
+    }
 	post {
 
 		always {
