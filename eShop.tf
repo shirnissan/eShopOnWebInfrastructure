@@ -173,8 +173,8 @@ resource "aws_instance" "nginx1" {
   instance_type          = "t2.medium"
   subnet_id              = aws_subnet.subnet1.id
   vpc_security_group_ids = [aws_security_group.nginx-sg.id]
-  key_name               = var.key_name
-      user_data = <<EOF
+  key_name               = "eShop"
+  user_data = <<EOF
 #!/bin/bash
 
 set -xe
@@ -245,8 +245,8 @@ resource "aws_instance" "nginx2" {
   instance_type          = "t2.medium"
   subnet_id              = aws_subnet.subnet2.id
   vpc_security_group_ids = [aws_security_group.nginx-sg.id]
-  key_name               = var.key_name
-    user_data = <<EOF
+  key_name               = "eShop"
+  user_data = <<EOF
 #!/bin/bash
 
 set -xe
