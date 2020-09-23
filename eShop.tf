@@ -219,9 +219,15 @@ cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_
 curl ${var.jenkins_url}/jnlpJars/slave.jar -o /tmp/slave.jar
 
 # Run jnlp launcher
-touch /tmp/firsttest.txt
 java -jar /tmp/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-agent.jnlp -jnlpCredentials "${var.master_name}:${var.master_pswd}"
-touch /tmp/test.txt
+
+# Install Docker
+yum update -y
+amazon-linux-extras install docker
+yum install docker
+service docker start
+usermod -a -G docker ec2-user
+docker info
 
 EOF
 
@@ -291,9 +297,15 @@ cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_
 curl ${var.jenkins_url}/jnlpJars/slave.jar -o /tmp/slave.jar
 
 # Run jnlp launcher
-touch /tmp/firsttest.txt
 java -jar /tmp/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-agent.jnlp -jnlpCredentials "${var.master_name}:${var.master_pswd}"
-touch /tmp/test.txt
+
+# Install Docker
+yum update -y
+amazon-linux-extras install docker
+yum install docker
+service docker start
+usermod -a -G docker ec2-user
+docker info
 
 EOF
 
