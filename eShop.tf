@@ -232,12 +232,12 @@ EOF
     private_key = file("/home/sela/eShop.pem")
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo amazon-linux-extras install nginx1",
-      "sudo service nginx start",
-    ]
-  }
+#   provisioner "remote-exec" {
+#     inline = [
+#       "sudo amazon-linux-extras install nginx1",
+#       "sudo service nginx start",
+#     ]
+#   }
 }
 
 resource "aws_instance" "nginx2" {
@@ -305,12 +305,12 @@ EOF
 
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo amazon-linux-extras install nginx1",
-      "sudo service nginx start",
-    ]
-  }
+#   provisioner "remote-exec" {
+#     inline = [
+#       "sudo amazon-linux-extras install nginx1",
+#       "sudo service nginx start",
+#     ]
+#   }
 }
 
 ##################################################################################
