@@ -170,7 +170,7 @@ resource "aws_elb" "web" {
 # INSTANCES #
 resource "aws_instance" "nginx1" {
   ami                    = data.aws_ami.aws-linux.id
-  instance_type          = "t2.xlarge"
+  instance_type          = "t2.large"
   subnet_id              = aws_subnet.subnet1.id
   vpc_security_group_ids = [aws_security_group.nginx-sg.id]
   key_name               = var.key_name
@@ -239,7 +239,7 @@ EOF
 
 resource "aws_instance" "nginx2" {
   ami                    = data.aws_ami.aws-linux.id
-  instance_type          = "t2.xlarge"
+  instance_type          = "t2.large"
   subnet_id              = aws_subnet.subnet2.id
   vpc_security_group_ids = [aws_security_group.nginx-sg.id]
   key_name               = var.key_name
