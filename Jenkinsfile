@@ -37,11 +37,11 @@ pipeline {
 
 	}
 	post {
+		success {
+		    	archiveArtifacts artifacts: 'terraform.tfstate', followSymlinks: false	
+		}
 		always {
 			cleanWs deleteDirs: true, notFailBuild: true
-		}
-		success {
-		    		archiveArtifacts artifacts: 'terraform.tfstate', followSymlinks: false	
 		}
 	}
 }
