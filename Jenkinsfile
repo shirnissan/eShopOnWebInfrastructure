@@ -34,15 +34,18 @@ pipeline {
 				}
 			}
 		}
-	    	stage('Archive Artifacts'){
-		    steps{
-		    	archiveArtifacts artifacts: 'terraform.tfstate', followSymlinks: false
-		    }
-	    	}
+
 	}
 	post {
 		always {
 			cleanWs deleteDirs: true, notFailBuild: true
+		}
+		success {
+		  	stage('Archive Artifacts'){
+		  		  steps{
+		    			archiveArtifacts artifacts: 'terraform.tfstate', followSymlinks: false
+		    	}	
+	    		}
 		}
 	}
 }
