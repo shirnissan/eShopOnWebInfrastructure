@@ -168,7 +168,7 @@ resource "aws_elb" "web" {
 }
 
 # INSTANCES #
-resource "aws_instance" "nginx1" {
+resource "aws_instance" "vm1" {
   ami                    = data.aws_ami.aws-linux.id
   instance_type          = "t2.medium"
   subnet_id              = aws_subnet.subnet1.id
@@ -240,7 +240,7 @@ EOF
 #   }
 }
 
-resource "aws_instance" "nginx2" {
+resource "aws_instance" "vm2" {
   ami                    = data.aws_ami.aws-linux.id
   instance_type          = "t2.medium"
   subnet_id              = aws_subnet.subnet2.id
