@@ -7,11 +7,12 @@ pipeline {
      		terraform 'terraform-11'
 	}
     stages {
-	    stage('Archive Artifacts'){
-		    steps{
-		    	archiveArtifacts artifacts: 'terraform.tfstate', followSymlinks: false, allowEmptyArchive: true
-		    }
-	    }
+	    
+	    	stage('Copy Artifacts'){
+		    	steps{
+		    		copyArtifacts filter: 'terraform.tfstate', fingerprintArtifacts: true, projectName: 'eShopOnWebInfrastructure', selector: lastSuccessful()	
+		    	}
+	    	}
             	stage('Terraform init') {
 			steps {
 				sh "terraform init"
@@ -33,10 +34,10 @@ pipeline {
 				}
 			}
 		}
-	    	stage('Copy Artifacts'){
-		    	steps{
-		    		copyArtifacts filter: 'terraform.tfstate', fingerprintArtifacts: true, projectName: 'eShopOnWebInfrastructure', selector: lastSuccessful()	
-		    	}
+	    	stage('Archive Artifacts'){
+		    steps{
+		    	archiveArtifacts artifacts: 'terraform.tfstate', followSymlinks: false
+		    }
 	    	}
 	}
 	post {
