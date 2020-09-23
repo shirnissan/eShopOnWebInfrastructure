@@ -234,7 +234,7 @@ EOF
 
   provisioner "remote-exec" {
     inline = [
-      "sudo yum install nginx -y",
+      "sudo amazon-linux-extras install nginx1",
       "sudo service nginx start",
     ]
   }
@@ -307,7 +307,7 @@ EOF
 
   provisioner "remote-exec" {
     inline = [
-      "sudo yum install nginx -y",
+      "sudo amazon-linux-extras install nginx1",
       "sudo service nginx start",
     ]
   }
