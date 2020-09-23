@@ -10,7 +10,7 @@ pipeline {
 	    
 	    	stage('Copy Artifacts'){
 		    	steps{
-		    		copyArtifacts filter: 'terraform.tfstate', fingerprintArtifacts: true, projectName: 'eShopOnWebInfrastructure', selector: lastSuccessful()	
+		    		copyArtifacts filter: 'terraform.tfstate', fingerprintArtifacts: true, projectName: 'eShopOnWebInfrastructure', selector: lastSuccessful(), optional: true	
 		    	}
 	    	}
             	stage('Terraform init') {
