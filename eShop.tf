@@ -157,8 +157,7 @@ resource "aws_elb" "web" {
 
   subnets         = [aws_subnet.subnet1.id, aws_subnet.subnet2.id]
   security_groups = [aws_security_group.elb-sg.id]
-#  instances       = [aws_instance.nginx1.id, aws_instance.nginx2.id]
-  instances       = [aws_instance.nginx1.id]
+  instances       = [aws_instance.nginx1.id, aws_instance.nginx2.id]
 
   listener {
     instance_port     = 80
@@ -206,7 +205,7 @@ cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_
       <failIfWorkDirIsMissing>false</failIfWorkDirIsMissing>
     </workDirSettings>
   </launcher>
-  <label></label>
+  <label>agent1</label>
   <nodeProperties/>
   <userId>$USER</userId>
 </slave>
@@ -238,28 +237,75 @@ EOF
   }
 }
 
-# resource "aws_instance" "nginx2" {
-#   ami                    = data.aws_ami.aws-linux.id
-#   instance_type          = "t2.micro"
-#   subnet_id              = aws_subnet.subnet2.id
-#   vpc_security_group_ids = [aws_security_group.nginx-sg.id]
-#   key_name               = var.key_name
+resource "aws_instance" "nginx2" {
+  ami                    = data.aws_ami.aws-linux.id
+  instance_type          = "t2.medium"
+  subnet_id              = aws_subnet.subnet2.id
+  vpc_security_group_ids = [aws_security_group.nginx-sg.id]
+  key_name               = var.key_name
+    user_data = <<EOF
+#!/bin/bash
 
-#   connection {
-#     type = "ssh"
-#     host = self.public_ip
-#     user = "ec2-user"
-#     private_key = file("/home/sela/eShop.pem")
+set -xe
 
-#   }
+NODE_NAME=`hostname`
+NUM_EXECUTORS=1
 
-#   provisioner "remote-exec" {
-#     inline = [
-#       "sudo yum install nginx -y",
-#       "sudo service nginx start",
-#     ]
-#   }
-# }
+yum update -y
+yum install -y amazon-linux-extras
+amazon-linux-extras install java-openjdk11
+
+# Download CLI jar from the master
+curl ${var.jenkins_url}/jnlpJars/jenkins-cli.jar -o ~/jenkins-cli.jar
+
+# Create node according to parameters passed in
+cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_pswd}" -s "${var.jenkins_url}" create-node "$NODE_NAME" |true
+<slave>
+  <name>$NODE_NAME</name>
+  <description></description>
+  <remoteFS>/home/jenkins/agent</remoteFS>
+  <numExecutors>$NUM_EXECUTORS</numExecutors>
+  <mode>NORMAL</mode>
+  <retentionStrategy class="hudson.slaves.RetentionStrategy\$Always"/>
+  <launcher class="hudson.slaves.JNLPLauncher">
+    <workDirSettings>
+      <disabled>false</disabled>
+      <internalDir>remoting</internalDir>
+      <failIfWorkDirIsMissing>false</failIfWorkDirIsMissing>
+    </workDirSettings>
+  </launcher>
+  <label>agent2</label>
+  <nodeProperties/>
+  <userId>$USER</userId>
+</slave>
+1EOF
+# Creating the node will fail if it already exists, so |true to suppress the
+# error. This probably should check if the node exists first but it should be
+# possible to see any startup errors if the node doesn't attach as expected.
+
+
+# Download slave.jar
+curl ${var.jenkins_url}/jnlpJars/slave.jar -o /tmp/slave.jar
+
+# Run jnlp launcher
+java -jar /tmp/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-agent.jnlp -jnlpCredentials "${var.master_name}:${var.master_pswd}"
+EOF
+
+  connection {
+    type = "ssh"
+    host = self.public_ip
+    user = "ec2-user"
+    private_key = file("/home/sela/eShop.pem")
+
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo yum install nginx -y",
+      "sudo service nginx start",
+    ]
+  }
+}
 
 ##################################################################################
 # OUTPUT
