@@ -302,10 +302,9 @@ java -jar /tmp/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-a
 # Install Docker
 yum update -y
 amazon-linux-extras install docker
-yum install docker
 service docker start
 usermod -a -G docker ec2-user
-docker info
+
 
 EOF
 
