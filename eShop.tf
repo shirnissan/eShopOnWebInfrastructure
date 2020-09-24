@@ -222,12 +222,10 @@ curl ${var.jenkins_url}/jnlpJars/slave.jar -o /tmp/slave.jar
 java -jar /tmp/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-agent.jnlp -jnlpCredentials "${var.master_name}:${var.master_pswd}"
 
 # Install Docker
-yum update -y
 amazon-linux-extras install docker
-yum install docker
 service docker start
 usermod -a -G docker ec2-user
-docker info
+yum install dotnet-sdk-2.2
 
 EOF
 
@@ -300,11 +298,10 @@ curl ${var.jenkins_url}/jnlpJars/slave.jar -o /tmp/slave.jar
 java -jar /tmp/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-agent.jnlp -jnlpCredentials "${var.master_name}:${var.master_pswd}"
 
 # Install Docker
-yum update -y
 amazon-linux-extras install docker
 service docker start
 usermod -a -G docker ec2-user
-
+yum install dotnet-sdk-2.2
 
 EOF
 
