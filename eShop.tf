@@ -205,7 +205,7 @@ cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_
       <failIfWorkDirIsMissing>false</failIfWorkDirIsMissing>
     </workDirSettings>
   </launcher>
-  <label>agent1</label>
+  <label>TerraformVM</label>
   <nodeProperties/>
   <userId>$USER</userId>
 </slave>
@@ -290,7 +290,7 @@ cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_
       <failIfWorkDirIsMissing>false</failIfWorkDirIsMissing>
     </workDirSettings>
   </launcher>
-  <label>agent2</label>
+  <label>TerraformVM</label>
   <nodeProperties/>
   <userId>$USER</userId>
 </slave>
