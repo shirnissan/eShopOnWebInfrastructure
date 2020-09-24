@@ -189,16 +189,6 @@ amazon-linux-extras install java-openjdk11
 # Download CLI jar from the master
 curl ${var.jenkins_url}/jnlpJars/jenkins-cli.jar -o ~/jenkins-cli.jar
 
-# Install Docker
-amazon-linux-extras install docker
-service docker start
-usermod -a -G docker ec2-user
-
-# Install dotnet
-rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
-yum install dotnet-sdk-3.1
-yum install aspnetcore-runtime-3.1
-
 # Create node according to parameters passed in
 cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_pswd}" -s "${var.jenkins_url}" create-node "$NODE_NAME" |true
 <slave>
@@ -242,6 +232,19 @@ EOF
     private_key = file("/home/sela/eShop.pem")
   }
 
+     provisioner "remote-exec" {
+    inline = [
+        # Install Docker
+        "amazon-linux-extras install docker"
+        "service docker start"
+        "usermod -a -G docker ec2-user"
+
+        # Install dotnet
+        "rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm"
+        "yum install dotnet-sdk-3.1"
+        "yum install aspnetcore-runtime-3.1"
+    ]
+  }
 #   provisioner "remote-exec" {
 #     inline = [
 #       "sudo amazon-linux-extras install nginx1",
@@ -270,16 +273,6 @@ amazon-linux-extras install java-openjdk11
 
 # Download CLI jar from the master
 curl ${var.jenkins_url}/jnlpJars/jenkins-cli.jar -o ~/jenkins-cli.jar
-
-# Install Docker
-amazon-linux-extras install docker
-service docker start
-usermod -a -G docker ec2-user
-
-# Install dotnet
-rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
-yum install dotnet-sdk-3.1
-yum install aspnetcore-runtime-3.1
 
 # Create node according to parameters passed in
 cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_pswd}" -s "${var.jenkins_url}" create-node "$NODE_NAME" |true
@@ -324,6 +317,19 @@ EOF
 
   }
 
+   provisioner "remote-exec" {
+    inline = [
+        # Install Docker
+        "amazon-linux-extras install docker"
+        "service docker start"
+        "usermod -a -G docker ec2-user"
+
+        # Install dotnet
+        "rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm"
+        "yum install dotnet-sdk-3.1"
+        "yum install aspnetcore-runtime-3.1"
+    ]
+  }
 #   provisioner "remote-exec" {
 #     inline = [
 #       "sudo amazon-linux-extras install nginx1",
