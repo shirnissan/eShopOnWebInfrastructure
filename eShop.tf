@@ -235,14 +235,14 @@ EOF
      provisioner "remote-exec" {
     inline = [
         # Install Docker
-        "amazon-linux-extras install docker",
-        "service docker start",
-        "usermod -a -G docker ec2-user",
+        "sudo amazon-linux-extras install docker",
+        "sudo service docker start",
+        "sudo usermod -a -G docker ec2-user",
 
         # Install dotnet
-        "rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm",
-        "yum install dotnet-sdk-3.1",
-        "yum install aspnetcore-runtime-3.1",
+        "sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm",
+        "sudo yum install dotnet-sdk-3.1",
+        "sudo yum install aspnetcore-runtime-3.1",
     ]
   }
 #   provisioner "remote-exec" {
@@ -320,14 +320,14 @@ EOF
    provisioner "remote-exec" {
     inline = [
         # Install Docker
-        "amazon-linux-extras install docker",
-        "service docker start",
-        "usermod -a -G docker ec2-user",
+        "sudo amazon-linux-extras install docker",
+        "sudo service docker start",
+        "sudo usermod -a -G docker ec2-user",
 
         # Install dotnet
-        "rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm",
-        "yum install dotnet-sdk-3.1",
-        "yum install aspnetcore-runtime-3.1",
+        "sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm",
+        "sudo yum install dotnet-sdk-3.1",
+        "sudo yum install aspnetcore-runtime-3.1",
     ]
   }
 #   provisioner "remote-exec" {
