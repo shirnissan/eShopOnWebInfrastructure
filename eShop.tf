@@ -249,8 +249,8 @@ EOF
         "sudo curl https://packages.microsoft.com/config/rhel/8/prod.repo > /etc/yum.repos.d/msprod.repo",      
         "sudo yum remove mssql-tools unixODBC-utf16-devel",
         "sudo yum install mssql-tools unixODBC-devel",
-        "echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile",
-        "echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc",
+        "echo 'export PATH='$PATH:/opt/mssql-tools/bin'' >> ~/.bash_profile",
+        "echo 'export PATH='$PATH:/opt/mssql-tools/bin'' >> ~/.bashrc",
         "source ~/.bashrc"
 
     ]
@@ -344,8 +344,8 @@ EOF
         "sudo curl https://packages.microsoft.com/config/rhel/8/prod.repo > /etc/yum.repos.d/msprod.repo",      
         "sudo yum remove mssql-tools unixODBC-utf16-devel",
         "sudo yum install mssql-tools unixODBC-devel",
-        "echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile",
-        "echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc",
+        "echo 'export PATH='$PATH:/opt/mssql-tools/bin'' >> ~/.bash_profile",
+        "echo 'export PATH='$PATH:/opt/mssql-tools/bin'' >> ~/.bashrc",
         "source ~/.bashrc"
 
     ]
