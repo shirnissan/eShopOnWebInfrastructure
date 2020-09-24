@@ -189,6 +189,16 @@ amazon-linux-extras install java-openjdk11
 # Download CLI jar from the master
 curl ${var.jenkins_url}/jnlpJars/jenkins-cli.jar -o ~/jenkins-cli.jar
 
+# Install Docker
+amazon-linux-extras install docker
+service docker start
+usermod -a -G docker ec2-user
+
+# Install dotnet
+rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
+yum install aspnetcore-runtime-3.1
+yum install dotnet-sdk-3.1
+
 # Create node according to parameters passed in
 cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_pswd}" -s "${var.jenkins_url}" create-node "$NODE_NAME" |true
 <slave>
@@ -221,11 +231,7 @@ curl ${var.jenkins_url}/jnlpJars/slave.jar -o /tmp/slave.jar
 # Run jnlp launcher
 java -jar /tmp/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-agent.jnlp -jnlpCredentials "${var.master_name}:${var.master_pswd}"
 
-# Install Docker
-amazon-linux-extras install docker
-service docker start
-usermod -a -G docker ec2-user
-yum install dotnet-sdk-2.2
+
 
 EOF
 
@@ -265,6 +271,16 @@ amazon-linux-extras install java-openjdk11
 # Download CLI jar from the master
 curl ${var.jenkins_url}/jnlpJars/jenkins-cli.jar -o ~/jenkins-cli.jar
 
+# Install Docker
+amazon-linux-extras install docker
+service docker start
+usermod -a -G docker ec2-user
+
+# Install dotnet
+rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm
+yum install aspnetcore-runtime-3.1
+yum install dotnet-sdk-3.1
+
 # Create node according to parameters passed in
 cat <<1EOF | java -jar ~/jenkins-cli.jar -auth "${var.master_name}:${var.master_pswd}" -s "${var.jenkins_url}" create-node "$NODE_NAME" |true
 <slave>
@@ -297,11 +313,6 @@ curl ${var.jenkins_url}/jnlpJars/slave.jar -o /tmp/slave.jar
 # Run jnlp launcher
 java -jar /tmp/slave.jar -jnlpUrl ${var.jenkins_url}/computer/$NODE_NAME/slave-agent.jnlp -jnlpCredentials "${var.master_name}:${var.master_pswd}"
 
-# Install Docker
-amazon-linux-extras install docker
-service docker start
-usermod -a -G docker ec2-user
-yum install dotnet-sdk-2.2
 
 EOF
 
