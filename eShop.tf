@@ -243,6 +243,16 @@ EOF
         "sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm",
         "sudo yum install -y dotnet-sdk-3.1",
         "sudo yum install -y aspnetcore-runtime-3.1",
+        "dotnet tool install --global dotnet-ef",
+      
+        # Install SQL
+        "sudo curl https://packages.microsoft.com/config/rhel/8/prod.repo > /etc/yum.repos.d/msprod.repo",      
+        "sudo yum remove mssql-tools unixODBC-utf16-devel",
+        "sudo yum install mssql-tools unixODBC-devel",
+        "echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile",
+        "echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc",
+        "source ~/.bashrc"
+
     ]
   }
 #   provisioner "remote-exec" {
@@ -328,6 +338,16 @@ EOF
         "sudo rpm -Uvh https://packages.microsoft.com/config/centos/7/packages-microsoft-prod.rpm",
         "sudo yum install -y dotnet-sdk-3.1",
         "sudo yum install -y aspnetcore-runtime-3.1",
+        "dotnet tool install --global dotnet-ef",
+      
+        # Install SQL
+        "sudo curl https://packages.microsoft.com/config/rhel/8/prod.repo > /etc/yum.repos.d/msprod.repo",      
+        "sudo yum remove mssql-tools unixODBC-utf16-devel",
+        "sudo yum install mssql-tools unixODBC-devel",
+        "echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile",
+        "echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc",
+        "source ~/.bashrc"
+
     ]
   }
 #   provisioner "remote-exec" {
