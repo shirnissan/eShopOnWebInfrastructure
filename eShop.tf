@@ -234,6 +234,10 @@ EOF
 
      provisioner "remote-exec" {
     inline = [
+        # Install nginx
+        "sudo amazon-linux-extras install -y nginx1.12",
+        "sudo service nginx start",
+      
         # Install Docker
         "sudo amazon-linux-extras install -y docker",
         "sudo service docker start",
@@ -329,6 +333,10 @@ EOF
 
    provisioner "remote-exec" {
     inline = [
+        # Install nginx
+        "sudo amazon-linux-extras install -y nginx1.12",
+        "sudo service nginx start",
+      
         # Install Docker
         "sudo amazon-linux-extras install -y docker",
         "sudo service docker start",
@@ -350,12 +358,6 @@ EOF
 
     ]
   }
-#   provisioner "remote-exec" {
-#     inline = [
-#       "sudo amazon-linux-extras install nginx1",
-#       "sudo service nginx start",
-#     ]
-#   }
 }
 
 ##################################################################################
