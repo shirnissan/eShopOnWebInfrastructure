@@ -168,7 +168,7 @@ resource "aws_elb" "web" {
   instances       = [aws_instance.vm1.id, aws_instance.vm2.id]
 
   listener {
-    instance_port     = 8080
+    instance_port     = 80
     instance_protocol = "tcp"
     lb_port           = 80
     lb_protocol       = "http"
