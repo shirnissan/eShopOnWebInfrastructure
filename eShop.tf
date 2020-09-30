@@ -137,11 +137,13 @@ resource "aws_security_group" "nginx-sg" {
   # HTTP access from the VPC
   ingress {
     from_port   = 80
-    to_port     = 80
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = [var.network_address_space]
+    security_group_id = "elb-sg"
   }
 
+  
   # outbound internet access
   egress {
     from_port   = 0
