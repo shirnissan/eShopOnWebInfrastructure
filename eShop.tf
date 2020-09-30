@@ -140,7 +140,6 @@ resource "aws_security_group" "nginx-sg" {
     to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = [var.network_address_space]
-    security_group_id = "elb-sg"
   }
 
   
