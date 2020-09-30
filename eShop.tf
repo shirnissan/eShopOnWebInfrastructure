@@ -106,8 +106,8 @@ resource "aws_security_group" "elb-sg" {
 
   #Allow HTTP from anywhere
   ingress {
-    from_port   = 8080
-    to_port     = 80
+    from_port   = 80
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -136,8 +136,8 @@ resource "aws_security_group" "nginx-sg" {
 
   # HTTP access from the VPC
   ingress {
-    from_port   = 8080
-    to_port     = 80
+    from_port   = 80
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = [var.network_address_space]
   }
@@ -164,7 +164,7 @@ resource "aws_elb" "web" {
     instance_port     = 8080
     instance_protocol = "tcp"
     lb_port           = 80
-    lb_protocol       = "tcp"
+    lb_protocol       = "http"
   }
 }
 
