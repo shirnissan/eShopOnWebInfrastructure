@@ -149,7 +149,14 @@ resource "aws_security_group" "nginx-sg" {
     cidr_blocks = [var.network_address_space]
   }
 
-  
+    # HTTP access from the VPC
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [var.network_address_space]
+  }
+
   # outbound internet access
   egress {
     from_port   = 0
