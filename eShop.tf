@@ -144,8 +144,8 @@ resource "aws_security_group" "nginx-sg" {
 
   # HTTP access from the VPC
   ingress {
-    from_port   = 80
-    to_port     = 8080
+    from_port   = 8080
+    to_port     = 80
     protocol    = "tcp"
     cidr_blocks = [var.network_address_space]
   }
